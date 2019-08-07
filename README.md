@@ -47,17 +47,55 @@ Here is a breakdown of my final clean CSV's features, `gapminder_all.csv`:
 
 **This project was done under the intention of finding relationships among seemingly unrelated variables. For the relationships in questions 3 and 4, I have not found any substantial, eye-opening relationships.**
 
-For **Question 1** I discovered that Guatemala had the highest murder rate at 131 people per 100,000 and this took place in the year 1981, which housed the global highest recorded homicide rate. To explore further, I asked the question, **How do murder rates for Guatemala vary by year?** I discovered that ***Guatemala in 1981, in fact, is a global outlier for murder rates.*** Furthermore, the trend for murder rates by year for Guatemala have largely been unpredictable and varied between the mid 1970s to late 1980s. These years also depicted the record highest and lowest murder rates for Guatemala, adding further to that picture of instability. After doing further research, I learned that ***this is the same exact year range that the Guatemalan Civil War took place.***
+### Results:
 
+**Overall**
+1. Earthquakes killed more people on average for all years at a mean of 218 people. Contrarily, floods killed the least amount of people, at 35 people on average.
+2. For all countries and years, around 7 people are killed per 100,000. At maximum, 131 people are killed per 100,000.
+3. Of all the natural disasters, droughts have the highest standard deviation at 5158 people - meaning droughts have the highest variability in mortality counts compared to all natural disasters.
+4. The average total forest area for any given country/year pair is 18,615 square kilometers.
+5. There is higher variability in female BMI scores in comparison to male BMI scores. However, the mean female BMI score is greater than the mean male BMI score.
+6. Floods happen the most but kill the least, while earthquakes happen the least but kill the most.
 
-For **Question 2**, I discovered that the ***more the forest land, the less likely the average citizen is to die by drought.*** This conclusion was reached after generating a scatterplot. However, the downside is that all points are clustered around the point (0, 0), and most points never go beyond y = 250. If we took away all outliers, the skew/distribution would be largely unclear though slightly right-skewed. To combat this, I implemented a linear regression test between the 2 variables with death by drought as the dependent variable. My Ordinary Least Squares regression model gave a coefficient of 0.0000038, which implies a ***weak positive linear relationship.*** However, the ***p-value was calculated to be 0.174, and when compared to a Type I error threshold of 0.05, this implies that total forest area is not statistically significant in predicting the counts of death by drought.*** This defeats my initial intuition that the more forest a country has, the more likely it is to have rivers and other sources of water, thus having lesser rates of death by drought.
+**Question 1:** Murder Rate by Country and Year
+1. Guatemala in the year 1981 had the highest global murder rate at 131 per 100,000 people.
+2. Guatemala in 1981 is, in fact, a global outlier for murder rates. These were the years during which the Guatemalan Civil War took place.
 
-For questions 3 and 4, I look at relationships between seemingly unrelated variables.**
+**Question 2**: Total Forest Area and Death by Drought
+1. The more total forest land a country has, the less likely the average citizen will die by drought.
+2. I received a coefficient of 0.0000038 and a p-value of 0.174 after implementing a linear regression model.
+3. With a Type I Error threshold at 0.05, the p-value indicates that total forest area is not statistically significant in predicting the counts of death by drought.
 
-For **Question 3**, I examined the relationship between BMI scores and total forest area in square kilometers. I discovered that the less forest area a country has in any given year, ***the more variability there is in the range of BMI scores for both genders.*** In the total forest area range between 0.5km^2 and 0.8km^2, BMI scores depict a negative linear trend for both genders. Overall, countries with 0.0 square kilometers of total forest area have the most variability among BMI rates, and there is a good variability of whether men or women are overweight based on total forest area.
+**Question 3**: Total Forest Area by BMI Scores and Gender
+1. The less forest area a country has in any given year, the more variability there is in the range of BMI scores for both genders.
+2. There are only 3 countries with no forest area: Qatar, Nauru, and San Marino. 
+3. 34 countries have shown a constant decrease in forest area by year, whereas only 12 countries have shown a constant increase in forest area by year. This means that more countries are losing forest land than gaining.
+4. The top 10 countries with the most forest area is either a world superpower, contains a rainforest climate, or both.
+5. The bottom 10 countries with the least forest area is at least 1 of the following: a majority/arid climate, a heavily industrialized country, and/or currently experiencing warfare and crisis.
+6. There is a good amount of variability of whether men or women are more overweight in any given total forest area. Therefore, this relationship is inconclusive.
 
-To explore the question further, I discovered that ***there are only 3 countries with no forest land: Nauru, Qatar, and San Marino.*** 34 countries have shown a constant decrease in forest area by year, where there are only 12 countries depicting a constant increase in forest area by year. Thus, ***more countries are losing forest land than countries that are gaining.*** Additionally, the top 10 countries with the most forest area either is a world superpower, contains a rainforest climate, or both. On the flipside, the bottom 10 countries with the least amount of forest area is at least 1 of the following: a majority desert/arid climate, a heavily industrialized country, and/or currently experiencing warfare and crisis.
+**Question 4**: Natural Disaster Death Counts by Murder Rates
+1. For all natural disasters except floods, the higher the natural disaster mortality count, the lesser the murder rate. 
+2. To combat the provided limitation below, I implemented 5 linear regression tests between murder rate and all 5 natural disaster death counts.
+3. With a Type I error threshold at 0.05, the only statistically significant relationships were Murder Rate vs.***Epidemic Killed*** and Murder Rate vs. ***Storm Killed***, with p-values of 0.00004 and 0.00256 respectively.
+4. The r-values for ***all my models*** are between 0.0 and 0.30, declaring that all relationships are weakly correlated.
 
-For **Question 4**, I examined the relationship between death by natural disaster and murder rates. Did the likelihood of experiencing a natural disaster correlate with the homicidal tendencies of the citizens? The plots generated implied that ***for all natural disasters except floods, the more natural disaster mortalities there are, the lesser the murder rate.*** However, I discovered that the majority of the data for death counts by natural disaster clustered around 0. We could not just exclude these "clusters" in our analysis because they contain the majority of data. On the other hand, focusing on the outliers solely would mean ignoring the majority of data.
+### Limitations:
 
-To combat this problem, I decided the best approach was to individually generate another linear regression test for murder rates vs. all 5 natural disaster death counts. After establishing a Type I error threshold at 0.05, the only statistically significant relationships were ***Murder Rate vs. Epidemic Killed*** and ***Murder Rate vs. Storm Killed***, with p-values of 0.00004 and 0.00256 respectively. The ***r-values for all my models are between 0.0 and 0.30***, declaring that all the relationships are weakly correlated. 
+**Overall**
+1. Not only did our `df_tsunami` dataset contain the least amount of records, it was filled with NaN values. I had to drop this dataset entirely, bringing down our natural disaster variables from 6 to 5.
+2. There were 26 NaN values in the `df_forest_area` dataset. Luckily, these all belonged to only 1 country - South Sudan - and so we only had to drop 1 row from the entire dataset.
+3. For `df_murder`, out of 206 countries, 198 had missing records. I had either 2 choices: fill in all the NaN data, or drop this dataset entirely. Since murder rates was one of my main variables of interest, I decided instead to keep the NaN values.
+4. `df_epidemic` was missing the year 1973. Therefore, when correlating other variables with counts of death by epidemic, I had to accept that this single year would be missing from our analysis.
+
+**Question 1**
+1. The trend for murder rates by year for Guatemala have largely been unpredictable and varied between the mid 1970s to late 1980s.
+
+**Question 2**
+1. Outliers heavily affect the distribution of forest land vs. death by drought. Taking away all outliers would render an unclear distribution, though it would be slightly right-skewed.
+
+**Question 3**
+1. Countries with 0 square kilometers of total forest area have the most variability among BMI rates, which means making visual assessments based on this large number of outliers was difficult to do.
+
+**Question 4**
+1. The majority of the data for death counts by natural disaster clustered around 0. Excluding this cluster of data would be impractical because that'd mean excluding the majority of the data. On the other hand, focusing solely on the outliers would mean ignoring the majority of data again. 
