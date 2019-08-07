@@ -13116,7 +13116,7 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Project:-Investigate-a-Dataset:-Finding-Correlations-among-Seemingly-Unrelated-Variables">Project: Investigate a Dataset: <em>Finding Correlations among Seemingly Unrelated Variables</em><a class="anchor-link" href="#Project:-Investigate-a-Dataset:-Finding-Correlations-among-Seemingly-Unrelated-Variables">&#182;</a></h1><h2 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">&#182;</a></h2><ul>
+<h1 id="Project:-Investigate-a-Dataset:-Finding-Correlations-Among-Seemingly-Unrelated-Variables">Project: Investigate a Dataset: <em>Finding Correlations Among Seemingly Unrelated Variables</em><a class="anchor-link" href="#Project:-Investigate-a-Dataset:-Finding-Correlations-Among-Seemingly-Unrelated-Variables">&#182;</a></h1><h2 id="Table-of-Contents">Table of Contents<a class="anchor-link" href="#Table-of-Contents">&#182;</a></h2><ul>
 <li><a href="#intro">Introduction</a></li>
 <li><a href="#wrangling">Data Wrangling</a></li>
 <li><a href="#eda">Exploring the Data</a></li>
@@ -13125,13 +13125,119 @@ div#notebook {
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[248]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_all</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[248]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>country</th>
+      <th>year</th>
+      <th>drought_killed</th>
+      <th>earthquake_killed</th>
+      <th>epidemic_killed</th>
+      <th>flood_killed</th>
+      <th>storm_killed</th>
+      <th>total_forest_area</th>
+      <th>female_bmi</th>
+      <th>male_bmi</th>
+      <th>murder_rate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Afghanistan</td>
+      <td>1970</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><a id='intro'></a></p>
 <h2 id="I)-Introduction">I) Introduction<a class="anchor-link" href="#I)-Introduction">&#182;</a></h2><p><strong>Broad question:</strong> How do total forest area and frequency of natural disasters shape a country's obesity rates and murder rates?</p>
-<blockquote><p>I picked these factors which seem to be unrelated--geography &amp; frequency of natural disasters, to rates of obesity murder, to formulate new interesting questions and uncover unexpected patterns. I also wanted to approach this project through an experimental and free-for-all lens, just to see if I can make any fun or comical conclusions from the giving unrelated datasets. To narrow down my focus, I picked subcategory of [TK] for geography, [TK] for education and [TK] to encompass murder rates. I received all of my data through GapMinder.</p>
+<blockquote><p>I picked these factors which seem to be unrelated: geography &amp; frequency of natural disasters, to rates of obesity and murder, to formulate new interesting questions and uncover unexpected patterns. I also wanted to approach this project through an experimental and free-for-all lens, just to see if I can make any fun or comical conclusions from the giving unrelated datasets. I received all of my data through GapMinder.</p>
 </blockquote>
+<p>Here is a breakdown of my final clean CSV's features, <code>gapminder_all.csv</code>:</p>
+<ul>
+<li><strong>country</strong></li>
+<li><strong>year</strong></li>
+</ul>
+<p><strong><em>Natural Disasters</em></strong></p>
+<ul>
+<li><strong>drought_killed</strong> </li>
+<li><strong>earthquake_killed</strong></li>
+<li><strong>epidemic_killed</strong></li>
+<li><strong>flood_killed</strong></li>
+<li><strong>storm_killed</strong></li>
+</ul>
+<p><strong><em>Total forest area in square kilometers</em></strong></p>
+<ul>
+<li><strong>total_forest_area</strong></li>
+</ul>
+<p><strong><em>Average bmi rate by country and year</em></strong></p>
+<ul>
+<li><strong>female_bmi</strong></li>
+<li><strong>male_bmi</strong></li>
+</ul>
+<p><strong><em>Counts of death by murder per 100,000</em></strong></p>
+<ul>
+<li><strong>murder rate</strong> </li>
+</ul>
 
 </div>
 </div>
@@ -13210,7 +13316,7 @@ div#notebook {
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h4 id="Total-Forest-Area">Total Forest Area<a class="anchor-link" href="#Total-Forest-Area">&#182;</a></h4><blockquote><p>I am focusing on total natural forest land per country, and so I will exclude factors that indicate if said forest land is reserved for agricultural production.</p>
-<p>From GapMinder, forest area is described as ‘land under natural or planted stands of trees of at least 5 meters in situ, whether productive or not, and excludes tree stands in agricultural production systems (for example, in fruit plantations and agroforestry systems) and trees in urban parks and gardens.' The dataset <code>forest_area_sq_km.csv</code> keeps track of the total forest area from 1990 to 2015.</p>
+<p>From GapMinder, forest area is described as ‘land under natural or planted stands of trees of at least 5 meters in site, whether productive or not, and excludes tree stands in agricultural production systems (for example, in fruit plantations and agroforestry systems) and trees in urban parks and gardens.' The dataset <code>forest_area_sq_km.csv</code> keeps track of the total forest area from 1990 to 2015.</p>
 </blockquote>
 
 </div>
@@ -16048,10 +16154,10 @@ True
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[52]:</div>
+<div class="prompt input_prompt">In&nbsp;[249]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_all</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./data/mindgap_all.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_all</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;./data/gapminder_all.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">index</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -16069,10 +16175,10 @@ True
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[140]:</div>
+<div class="prompt input_prompt">In&nbsp;[250]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_mg</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/mindgap_all.csv&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df_mg</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;./data/gapminder_all.csv&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -17231,19 +17337,21 @@ r-value: 0.06565
 <p><strong>Observation 3:</strong> All of the coefficients are less than 1, which imply that the relationships are all weakly correlated. To support this conjecture, <strong><em>all r-values are between 0.0 and 0.30.</em></strong> This is solid proof that not only are 3 out of the 5 relationships statistically insignificant, but all correlations are weak.</p>
 <p><strong>Observation 4:</strong> For Murder Rate vs. Earthquake Killed, I noticed that the <strong><em>coefficient is negative (-0.00001) while the r-value is positive (0.00123).</em></strong> A scenario like this is not entirely impossible, because r-value calculation takes the issue of multiple regression while simple coefficient does not. To conclude this relationship, I'll say that the correlation depicted between Murder Rate and Earthquake Killed is a weak, uphill (positive) linear relationship.</p>
 <p><a id='conclusions'></a></p>
-<h1 id="IV)-Conclusions">IV) Conclusions<a class="anchor-link" href="#IV)-Conclusions">&#182;</a></h1><p><strong>I started with project with the intention of finding relationships among seemingly unrelated variables. For the relationships in the last 2 questions, I have not found any substantial, eye-opening relationships.</strong></p>
-<p>For <strong>Question 1</strong>, I wanted to see which country had the homicide rate, along with its years, and whether this entry acted as an outlier. I discovered that Guatemala had the highest murder rate at 131 people per 100,000 and this took place in the year 1981, which housed the global highest recorded homicide rate. To explore further, I asked the question, <strong>How do murder rates for Guatemala vary by year?</strong> I discovered that <strong><em>Guatemala in 1981, in fact, is a global outlier for murder rates.</em></strong> Furthermore, the trend for murder rates by year for Guatemala have largely been unpredictable and varied between the mid 1970s to late 1980s. These years also depicted the record highest and lowest murder rates for Guatemala, adding further to that picture of instability. After doing further research, I learned that <strong><em>this is the same exact year range that the Guatemalan Civil War took place.</em></strong></p>
-<p>For <strong>Question 2</strong>, I wanted to see if countries with less forest area tend to have higher rates of death by drought. After generating a scatterplot, I discovered that the <strong><em>more the forest land, the less likely the average citizen is to die by drought.</em></strong> However, the downside is that all points are clustered around the point (0, 0), and most points never go beyond y = 250. If we took away all outliers, the skew/distribution would be largely unclear though slightly right-skewed. To combat this, I implemented a linear regression test between the 2 variables, with death by drought as the dependent variable. My Ordinary Least Squares regression model gave a coefficient of 0.0000038, which implies a <strong><em>weak positive linear relationship.</em></strong> However, <strong><em>p-value was calculated to be 0.174, and when compared to a Type I error threshold of 0.05, this implies that total forest area is not statistically significant in predicting the counts of death by drought.</em></strong> This defeats my initial intuition that the more forest a country has, the more likely they are to have rivers and other sources of water, thus having lesser rates of death by drought.</p>
+<h1 id="IV)-Conclusions">IV) Conclusions<a class="anchor-link" href="#IV)-Conclusions">&#182;</a></h1><p><strong>This project was done under the intention of finding relationships among seemingly unrelated variables. For the relationships in questions 3 and 4, I have not found any substantial, eye-opening relationships.</strong></p>
+<p>For <strong>Question 1</strong> I discovered that Guatemala had the highest murder rate at 131 people per 100,000 and this took place in the year 1981, which housed the global highest recorded homicide rate. To explore further, I asked the question, <strong>How do murder rates for Guatemala vary by year?</strong> I discovered that <strong><em>Guatemala in 1981, in fact, is a global outlier for murder rates.</em></strong> Furthermore, the trend for murder rates by year for Guatemala have largely been unpredictable and varied between the mid 1970s to late 1980s. These years also depicted the record highest and lowest murder rates for Guatemala, adding further to that picture of instability. After doing further research, I learned that <strong><em>this is the same exact year range that the Guatemalan Civil War took place.</em></strong></p>
+<p>For <strong>Question 2</strong>, I discovered that the <strong><em>more the forest land, the less likely the average citizen is to die by drought.</em></strong> This conclusion was reached after generating a scatterplot. However, the downside is that all points are clustered around the point (0, 0), and most points never go beyond y = 250. If we took away all outliers, the skew/distribution would be largely unclear though slightly right-skewed. To combat this, I implemented a linear regression test between the 2 variables with death by drought as the dependent variable. My Ordinary Least Squares regression model gave a coefficient of 0.0000038, which implies a <strong><em>weak positive linear relationship.</em></strong> However, <strong><em>p-value was calculated to be 0.174, and when compared to a Type I error threshold of 0.05, this implies that total forest area is not statistically significant in predicting the counts of death by drought.</em></strong> This defeats my initial intuition that the more forest a country has, the more likely it is to have rivers and other sources of water, thus having lesser rates of death by drought.</p>
 <p>For questions 3 and 4, I look at relationships between seemingly unrelated variables.**</p>
-<p>For <strong>Question 3</strong>, I examined the relationship between BMI scores and total forest area in square kilometer. I discovered that the less forest area a country has in any given year, <strong><em>the more variability there is in the range of BMI scores for both genders.</em></strong> In the total forest area range between 0.5km^2 and 0.8km^2, BMI scores depict a negative linear trend for both genders. Overall, countries with 0.0 square kilometers of total forest area have the most variability among BMI rates, and there is a good variability of whether men or women are overweight based on total forest area. To explore the question further, I discovered that <strong><em>there are only 3 countries with no forest land: Nauru, Qatar, and San Marino.</em></strong> 34 countries have shown a constant decrease in forest area by year, where there are only 12 countries depicting a constant increase in forest area by year. Additionally, the top 10 countries with the most forest area have is a world superpower, contains a rainforest climate, or both. On the flipside, the bottom 10 countries with the least amount of forest area is at least 1 of the following: is a majority desert/arid climate, is a heavily industrialized country, and/or is currently experiencing warfare and crisis.</p>
-<p>For <strong>Question 4</strong>, I examined the relationship between death by natural disaster and murder rates. Did the likelihood of experiencing a natural disaster correlate with the homicidal tendencies of the citizens? The plots generated implied that <strong><em>for all natural disasters except flood, the more natural disaster mortalities there are, the lesser the murder rate.</em></strong> However, I discovered that the majority of the data for death counts by natural disaster clustered around 0. We could not just exclude these "clusters" in our analysis because they contain the majority of data. On the other hand, focusing on the outliers solely would mean ignoring the majority of data. The combat this problem, I decided the best approach was to generate another linear regression test for murder rates vs. all 5 natural disaster death counts, individually. After establishing a Type I error threshold at 0.05, the only statistically significant relationships were <strong><em>Murder Rate vs. Epidemic Killed</em></strong> and <strong><em>Murder Rate vs. Storm Killed</em></strong>, with p-values of 0.00004 and 0.00256 respectively. <strong><em>r-values for all my models are between 0.0 and 0.30</em></strong>, declaring that all the relationships are weakly correlated.</p>
+<p>For <strong>Question 3</strong>, I examined the relationship between BMI scores and total forest area in square kilometers. I discovered that the less forest area a country has in any given year, <strong><em>the more variability there is in the range of BMI scores for both genders.</em></strong> In the total forest area range between 0.5km^2 and 0.8km^2, BMI scores depict a negative linear trend for both genders. Overall, countries with 0.0 square kilometers of total forest area have the most variability among BMI rates, and there is a good variability of whether men or women are overweight based on total forest area.</p>
+<p>To explore the question further, I discovered that <strong><em>there are only 3 countries with no forest land: Nauru, Qatar, and San Marino.</em></strong> 34 countries have shown a constant decrease in forest area by year, where there are only 12 countries depicting a constant increase in forest area by year. Thus, <strong><em>more countries are losing forest land than countries that are gaining.</em></strong> Additionally, the top 10 countries with the most forest area have either is a world superpower, contains a rainforest climate, or both. On the flipside, the bottom 10 countries with the least amount of forest area is at least 1 of the following: a majority desert/arid climate, a heavily industrialized country, and/or currently experiencing warfare and crisis.</p>
+<p>For <strong>Question 4</strong>, I examined the relationship between death by natural disaster and murder rates. Did the likelihood of experiencing a natural disaster correlate with the homicidal tendencies of the citizens? The plots generated implied that <strong><em>for all natural disasters except floods, the more natural disaster mortalities there are, the lesser the murder rate.</em></strong> However, I discovered that the majority of the data for death counts by natural disaster clustered around 0. We could not just exclude these "clusters" in our analysis because they contain the majority of data. On the other hand, focusing on the outliers solely would mean ignoring the majority of data.</p>
+<p>To combat this problem, I decided the best approach was to individually generate another linear regression test for murder rates vs. all 5 natural disaster death counts. After establishing a Type I error threshold at 0.05, the only statistically significant relationships were <strong><em>Murder Rate vs. Epidemic Killed</em></strong> and <strong><em>Murder Rate vs. Storm Killed</em></strong>, with p-values of 0.00004 and 0.00256 respectively. The <strong><em>r-values for all my models are between 0.0 and 0.30</em></strong>, declaring that all the relationships are weakly correlated.</p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[246]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#convert notebook to HTML</span>
@@ -17252,6 +17360,26 @@ r-value: 0.06565
 </pre></div>
 
     </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[246]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0</pre>
+</div>
+
+</div>
+
 </div>
 </div>
 
